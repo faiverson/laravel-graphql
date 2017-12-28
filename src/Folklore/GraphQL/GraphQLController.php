@@ -66,10 +66,7 @@ class GraphQLController extends Controller
         $options = config('graphql.json_encoding_options', 0);
 
         $errors = !$isBatch ? array_get($data, 'errors', []) : [];
-        $authorized = array_reduce($errors, function ($authorized, $error) {
-            return !$authorized || array_get($error, 'message') === 'Unauthorized' ? false : true;
-        }, true);
-        if (!$authorized) {
+        if ($errors) {
             return response()->json($data, 403, $headers, $options);
         }
 

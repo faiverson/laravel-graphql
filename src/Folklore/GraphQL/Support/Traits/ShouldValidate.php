@@ -6,6 +6,7 @@ use Folklore\GraphQL\Error\ValidationError;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\ListOfType;
 use GraphQL\Type\Definition\WrappingType;
+use Illuminate\Validation\ValidationException;
 
 trait ShouldValidate
 {
@@ -22,6 +23,7 @@ trait ShouldValidate
 
         $argsRules = [];
         foreach ($this->args() as $name => $arg) {
+
             if (isset($arg['rules'])) {
                 $argsRules[$name] = $this->resolveRules($arg['rules'], $arguments);
             }
@@ -102,13 +104,12 @@ trait ShouldValidate
 
         return function () use ($resolver) {
             $arguments = func_get_args();
-
             $rules = call_user_func_array([$this, 'getRules'], $arguments);
             if (sizeof($rules)) {
                 $args = array_get($arguments, 1, []);
                 $validator = $this->getValidator($args, $rules);
                 if ($validator->fails()) {
-                    throw with(new ValidationError('validation'))->setValidator($validator);
+                    throw with(new ValidationException($validator));
                 }
             }
 

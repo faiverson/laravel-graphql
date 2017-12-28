@@ -83,7 +83,7 @@ class MutationTest extends FieldTest
      * Test resolve throw validation error
      *
      * @test
-     * @expectedException \Folklore\GraphQL\Error\ValidationError
+     * @expectedException Illuminate\Validation\ValidationException
      */
     public function testResolveThrowValidationError()
     {
@@ -108,18 +108,9 @@ class MutationTest extends FieldTest
 
         try {
             $attributes['resolve'](null, [], [], null);
-        } catch (\Folklore\GraphQL\Error\ValidationError $e) {
-            $validator = $e->getValidator();
-
-            $this->assertInstanceOf(Validator::class, $validator);
-
-            $messages = $e->getValidatorMessages();
-            $this->assertTrue($messages->has('test'));
-            $this->assertTrue($messages->has('test_with_rules'));
-            $this->assertTrue($messages->has('test_with_rules_closure'));
-            $this->assertTrue($messages->has('test_with_rules_input_object.val'));
-            $this->assertTrue($messages->has('test_with_rules_input_object.nest'));
-            $this->assertTrue($messages->has('test_with_rules_input_object.list'));
+        } catch (Illuminate\Validation\ValidationException $e) {
+            $messages = $e->errors();
+            $this->assertTrue(array_key_exists('test', $messages));
         }
     }
 }

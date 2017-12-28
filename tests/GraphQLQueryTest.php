@@ -109,9 +109,12 @@ class GraphQLQueryTest extends TestCase
      */
     public function testQueryAndReturnResultWithAuthorize()
     {
-        $result = GraphQL::query($this->queries['examplesWithAuthorize']);
-        $this->assertNull($result['data']['examplesAuthorize']);
-        $this->assertEquals('Unauthorized', $result['errors'][0]['message']);
+        try {
+            GraphQL::query($this->queries['examplesWithAuthorize']);
+        }
+        catch (\Exception $e) {
+            $this->assertTrue($e instanceof \Illuminate\Auth\Access\AuthorizationException);
+        }
     }
 
     /**
@@ -160,12 +163,12 @@ class GraphQLQueryTest extends TestCase
      */
     public function testQueryWithValidationError()
     {
-        $result = GraphQL::query($this->queries['examplesWithValidation']);
-
-        $this->assertArrayHasKey('data', $result);
-        $this->assertArrayHasKey('errors', $result);
-        $this->assertArrayHasKey('validation', $result['errors'][0]);
-        $this->assertTrue($result['errors'][0]['validation']->has('index'));
+        try {
+            GraphQL::query($this->queries['examplesWithValidation']);
+        }
+        catch (\Exception $e) {
+            $this->assertTrue($e instanceof \Illuminate\Validation\ValidationException);
+        }
     }
 
     /**

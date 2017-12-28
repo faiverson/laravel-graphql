@@ -79,12 +79,8 @@ class EndpointTest extends TestCase
             'query' => $this->queries['examplesWithAuthorize']
         ]);
 
+        // the exception is handled by Laravel Handler
         $this->assertEquals($response->getStatusCode(), 403);
-
-        $content = $response->getData(true);
-        $this->assertArrayHasKey('data', $content);
-        $this->assertArrayHasKey('errors', $content);
-        $this->assertNull($content['data']['examplesAuthorize']);
     }
 
     /**

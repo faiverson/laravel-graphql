@@ -193,21 +193,6 @@ class GraphQLTest extends TestCase
         ]);
     }
     
-    public function testFormatValidationError()
-    {
-        $validator = Validator::make([], [
-            'test' => 'required'
-        ]);
-        $validator->fails();
-        $validationError = with(new ValidationError('validation'))->setValidator($validator);
-        $error = new Error('error', null, null, null, null, $validationError);
-        $error = GraphQL::formatError($error);
-        
-        $this->assertInternalType('array', $error);
-        $this->assertArrayHasKey('validation', $error);
-        $this->assertTrue($error['validation']->has('test'));
-    }
-    
     /**
      * Test add type
      *

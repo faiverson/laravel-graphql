@@ -2,8 +2,8 @@
 
 namespace Folklore\GraphQL\Support;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Fluent;
-use Folklore\GraphQL\Error\AuthorizationError;
 
 class Field extends Fluent
 {
@@ -46,7 +46,7 @@ class Field extends Fluent
 
             // Authorize
             if (call_user_func_array($authorize, $args) !== true) {
-                throw new AuthorizationError('Unauthorized');
+                throw new AuthorizationException();
             }
 
             return call_user_func_array($resolver, $args);

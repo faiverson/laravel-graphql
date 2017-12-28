@@ -40,7 +40,7 @@ class UpdateExampleMutation extends Mutation
             'test_with_rules_closure' => [
                 'name' => 'test',
                 'type' => Type::string(),
-                'rules' => function ($root, $args) {
+                'rules' => function () {
                     return ['required'];
                 }
             ],

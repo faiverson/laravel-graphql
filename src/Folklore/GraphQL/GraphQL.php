@@ -6,9 +6,6 @@ use GraphQL\Error\Error;
 
 use GraphQL\Type\Definition\ObjectType;
 
-use Folklore\GraphQL\Error\ValidationError;
-use Folklore\GraphQL\Error\AuthorizationError;
-
 use Folklore\GraphQL\Exception\TypeNotFound;
 use Folklore\GraphQL\Exception\SchemaNotFound;
 
@@ -279,9 +276,10 @@ class GraphQL
             }, $locations);
         }
 
+        // let's pass the exception to laravel exception handler
         $previous = $e->getPrevious();
-        if ($previous && $previous instanceof ValidationError) {
-            $error['validation'] = $previous->getValidatorMessages();
+        if($previous && !$previous instanceof Error) {
+            throw $previous;
         }
 
         return $error;

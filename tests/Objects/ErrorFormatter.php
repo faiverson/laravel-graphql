@@ -17,10 +17,10 @@ class ErrorFormatter
                 return $loc->toArray();
             }, $locations);
         }
-        
+
         $previous = $e->getPrevious();
-        if ($previous && $previous instanceof ValidationError) {
-            $error['validation'] = $previous->getValidatorMessages();
+        if($previous && !$previous instanceof Error) {
+            throw $previous;
         }
         
         return $error;
