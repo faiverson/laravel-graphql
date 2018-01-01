@@ -67,50 +67,6 @@ class PaginationType extends ObjectType
                     },
                     'selectable' => false,
                 ],
-                'from' => [
-                    'type' => GraphQLType::nonNull(GraphQLType::int()),
-                    'description' => 'Current page of the cursor',
-                    'resolve' => function ($data) {
-                        if($data instanceof LengthAwarePaginator) {
-                            return $data->firstItem();
-                        }
-                        return NULL;
-                    },
-                    'selectable' => false,
-                ],
-                'to' => [
-                    'type' => GraphQLType::nonNull(GraphQLType::int()),
-                    'description' => 'Current page of the cursor',
-                    'resolve' => function ($data) {
-                        if($data instanceof LengthAwarePaginator) {
-                            return $data->lastItem();
-                        }
-                        return NULL;
-                    },
-                    'selectable' => false,
-                ],
-                'next_page_url' => [
-                    'type' => GraphQLType::nonNull(GraphQLType::int()),
-                    'description' => 'Current page of the cursor',
-                    'resolve' => function ($data) {
-                        if($data instanceof LengthAwarePaginator) {
-                            return $data->nextPageUrl();
-                        }
-                        return NULL;
-                    },
-                    'selectable' => false,
-                ],
-                'prev_page_url' => [
-                    'type' => GraphQLType::nonNull(GraphQLType::int()),
-                    'description' => 'Current page of the cursor',
-                    'resolve' => function ($data) {
-                        if($data instanceof LengthAwarePaginator) {
-                            return $data->previousPageUrl();
-                        }
-                        return NULL;
-                    },
-                    'selectable' => false,
-                ],
             ],
         ]);
     }

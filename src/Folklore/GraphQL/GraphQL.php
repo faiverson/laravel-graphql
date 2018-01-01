@@ -1,4 +1,6 @@
-<?php namespace Folklore\GraphQL;
+<?php
+
+namespace Folklore\GraphQL;
 
 use Folklore\GraphQL\Support\Contracts\TypeConvertible;
 use Folklore\GraphQL\Support\PaginationType;

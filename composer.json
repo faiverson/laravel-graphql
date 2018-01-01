@@ -1,5 +1,6 @@
 {
     "name": "folklore/graphql",
+    "version": "0.0.3",
     "description": "Facebook GraphQL for Laravel",
     "keywords": ["framework", "laravel", "graphql", "react"],
     "authors": [
@@ -39,6 +40,11 @@
             "tests/"
         ]
     },
+    "repositories": [
+        {
+            "packagist.org": false
+        }
+    ],
     "extra": {
         "laravel": {
             "providers": [
