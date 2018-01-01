@@ -1,6 +1,7 @@
 <?php namespace Folklore\GraphQL;
 
 use Folklore\GraphQL\Support\Contracts\TypeConvertible;
+use Folklore\GraphQL\Support\PaginationType;
 use GraphQL\GraphQL as GraphQLBase;
 use GraphQL\Type\Schema;
 use GraphQL\Error\Error;
@@ -278,6 +279,14 @@ class GraphQL
 
         $type = is_object($class) ? $class:$this->app->make($class);
         return $type->name;
+    }
+
+    public function paginate($typeName)
+    {
+        if (!isset($this->typesInstances[$typeName . 'Pagination'])) {
+            $this->typesInstances[$typeName . 'Pagination'] = new PaginationType($typeName . 'Pagination');
+        }
+        return $this->typesInstances[$typeName . 'Pagination'];
     }
 
     public static function formatError(Error $e)
