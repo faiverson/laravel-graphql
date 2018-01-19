@@ -286,7 +286,7 @@ class GraphQL
     public function paginate($typeName)
     {
         if (!isset($this->typesInstances[$typeName . 'Pagination'])) {
-            $this->typesInstances[$typeName . 'Pagination'] = new PaginationType($typeName . 'Pagination');
+            $this->typesInstances[$typeName . 'Pagination'] = new PaginationType($typeName);
         }
         return $this->typesInstances[$typeName . 'Pagination'];
     }
