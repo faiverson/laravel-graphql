@@ -31,8 +31,7 @@ class PaginationType extends ObjectType
                             return $data->total();
                         }
                         return NULL;
-                    },
-                    'selectable' => false,
+                    }
                 ],
                 'per_page' => [
                     'type' => GraphQLType::nonNull(GraphQLType::int()),
@@ -42,8 +41,7 @@ class PaginationType extends ObjectType
                             return $data->perPage();
                         }
                         return NULL;
-                    },
-                    'selectable' => false,
+                    }
                 ],
                 'last_page' => [
                     'type' => GraphQLType::nonNull(GraphQLType::int()),
@@ -53,8 +51,7 @@ class PaginationType extends ObjectType
                             return $data->lastPage();
                         }
                         return NULL;
-                    },
-                    'selectable' => false,
+                    }
                 ],
                 'current_page' => [
                     'type' => GraphQLType::nonNull(GraphQLType::int()),
@@ -64,8 +61,47 @@ class PaginationType extends ObjectType
                             return $data->currentPage();
                         }
                         return NULL;
-                    },
-                    'selectable' => false,
+                    }
+                ],
+                'from' => [
+                    'type' => GraphQLType::nonNull(GraphQLType::int()),
+                    'description' => 'Current page of the cursor',
+                    'resolve' => function ($data) {
+                        if($data instanceof LengthAwarePaginator) {
+                            return $data->firstItem();
+                        }
+                        return NULL;
+                    }
+                ],
+                'to' => [
+                    'type' => GraphQLType::nonNull(GraphQLType::int()),
+                    'description' => 'Current page of the cursor',
+                    'resolve' => function ($data) {
+                        if($data instanceof LengthAwarePaginator) {
+                            return $data->lastItem();
+                        }
+                        return NULL;
+                    }
+                ],
+                'next_page_url' => [
+                    'type' => GraphQLType::nonNull(GraphQLType::int()),
+                    'description' => 'Current page of the cursor',
+                    'resolve' => function ($data) {
+                        if($data instanceof LengthAwarePaginator) {
+                            return $data->nextPageUrl();
+                        }
+                        return NULL;
+                    }
+                ],
+                'prev_page_url' => [
+                    'type' => GraphQLType::nonNull(GraphQLType::int()),
+                    'description' => 'Current page of the cursor',
+                    'resolve' => function ($data) {
+                        if($data instanceof LengthAwarePaginator) {
+                            return $data->previousPageUrl();
+                        }
+                        return NULL;
+                    }
                 ],
             ],
         ]);
