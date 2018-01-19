@@ -9,7 +9,7 @@ use GraphQL\Type\Definition\WrappingType;
 
 trait ShouldValidate
 {
-    public function rules($root = NULL, $args = NULL)
+    public function rules($root, $args)
     {
         return [];
     }
