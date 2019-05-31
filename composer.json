@@ -54,5 +54,7 @@
                 "GraphQL": "Folklore\\GraphQL\\Support\\Facades\\GraphQL"
             }
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
