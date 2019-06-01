@@ -169,7 +169,7 @@ class GraphQL
 
         $schema = $this->schema($schemaName);
 
-        $result = GraphQLBase::executeAndReturnResult($schema, $query, $root, $context, $variables, $operationName);
+        $result = GraphQLBase::executeQuery($schema, $query, $root, $context, $variables, $operationName);
 
         return $result;
     }
